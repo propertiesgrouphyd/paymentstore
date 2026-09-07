@@ -1,0 +1,65 @@
+[
+  {
+    "id": "aividhya",
+    "appId": "AIV",
+    "name": "AIVidhya",
+    "url": "https://aividhya.vidhwaan.com",
+    "amount": 30,
+    "days": 30,
+    "active": false
+  },
+  {
+    "id": "neet",
+    "appId": "NEET",
+    "name": "VIDHWAAN NEET",
+    "url": "https://neet.vidhwaan.com",
+    "amount": 30,
+    "days": 30,
+    "active": false
+  },
+  {
+    "id": "ai-writer",
+    "appId": "VAW",
+    "name": "VIDHWAAN AI Writer",
+    "url": "https://writer.vidhwaan.com",
+    "amount": 30,
+    "days": 30,
+    "active": true
+  },
+  {
+    "id": "kidlab",
+    "appId": "KID",
+    "name": "KidLab",
+    "url": "https://villagekidlab.vidhwaan.com",
+    "amount": 30,
+    "days": 30,
+    "active": false
+  },
+  {
+    "id": "billwaan",
+    "appId": "BIL",
+    "name": "Billwaan App",
+    "url": "https://bill.vidhwaan.com",
+    "amount": 30,
+    "days": 30,
+    "active": false
+  },
+  {
+    "id": "gita",
+    "appId": "GIT",
+    "name": "Bhagavad Gita",
+    "url": "https://gita.vidhwaan.com",
+    "amount": 30,
+    "days": 30,
+    "active": false
+  },
+  {
+    "id": "online-shop",
+    "appId": "SHOP",
+    "name": "Online Shop",
+    "url": "https://market.vidhwaan.com",
+    "amount": 30,
+    "days": 30,
+    "active": false
+  }
+]
