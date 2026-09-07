@@ -1,0 +1,335 @@
+name: VIDHWAAN PAYMENT STORE DEPLOY
+
+
+on:
+
+  workflow_dispatch:
+
+
+permissions:
+
+  contents: read
+
+
+jobs:
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    env:
+
+      PROJECT_NAME: vidhwaan-paymentstore
+
+
+    steps:
+
+
+      # ==========================================================
+      # CHECKOUT
+      # ==========================================================
+
+      - name: Checkout Repository
+
+        uses: actions/checkout@v4
+
+
+      # ==========================================================
+      # NODE
+      # ==========================================================
+
+      - name: Setup Node
+
+        uses: actions/setup-node@v4
+
+        with:
+          node-version: 22
+
+
+      # ==========================================================
+      # INSTALL BUILD TOOLS
+      # ==========================================================
+
+      - name: Install Build Tools
+
+        run: |
+
+          npm install -g wrangler@latest
+          npm install -g terser@latest
+          npm install -g javascript-obfuscator@latest
+          npm install -g clean-css-cli@latest
+          npm install -g html-minifier-terser@latest
+
+
+      # ==========================================================
+      # PREPARE DIST
+      # ==========================================================
+
+      - name: Prepare Dist
+
+        run: |
+
+          set -e
+
+          rm -rf dist
+
+          mkdir -p dist
+
+          cp index.html dist/
+          cp main.css dist/
+          cp app.js dist/
+          cp apps.json dist/
+
+
+      # ==========================================================
+      # MINIFY HTML
+      # ==========================================================
+
+      - name: Minify HTML
+
+        run: |
+
+          set -e
+
+          html-minifier-terser \
+            --collapse-whitespace \
+            --remove-comments \
+            --remove-redundant-attributes \
+            --remove-empty-attributes \
+            --remove-optional-tags \
+            --use-short-doctype \
+            dist/index.html \
+            -o dist/index.html
+
+
+      # ==========================================================
+      # MINIFY CSS
+      # ==========================================================
+
+      - name: Minify CSS
+
+        run: |
+
+          set -e
+
+          cleancss \
+            -O2 \
+            dist/main.css \
+            -o dist/main.css
+
+
+      # ==========================================================
+      # MINIFY JAVASCRIPT
+      # ==========================================================
+
+      - name: Minify JavaScript
+
+        run: |
+
+          set -e
+
+          terser dist/app.js \
+            --compress \
+            --mangle \
+            -o dist/app.js
+
+
+      # ==========================================================
+      # OBFUSCATE JAVASCRIPT
+      # ==========================================================
+
+      - name: Obfuscate JavaScript
+
+        run: |
+
+          set -e
+
+          javascript-obfuscator dist/app.js \
+            --output dist/app.js \
+            --compact true \
+            --control-flow-flattening true \
+            --control-flow-flattening-threshold 0.65 \
+            --dead-code-injection true \
+            --dead-code-injection-threshold 0.10 \
+            --disable-console-output true \
+            --identifier-names-generator hexadecimal \
+            --rename-globals false \
+            --self-defending true \
+            --split-strings true \
+            --split-strings-chunk-length 8 \
+            --string-array true \
+            --string-array-encoding base64 \
+            --string-array-threshold 0.75
+
+
+      # ==========================================================
+      # CACHE BUSTING
+      # ==========================================================
+
+      - name: Cache Busting
+
+        run: |
+
+          set -e
+
+          VERSION=$(date +%s)
+
+          sed -i \
+            "s|main.css|main.css?v=$VERSION|g" \
+            dist/index.html
+
+          sed -i \
+            "s|app.js|app.js?v=$VERSION|g" \
+            dist/index.html
+
+          sed -i \
+            "s|apps.json|apps.json?v=$VERSION|g" \
+            dist/index.html
+
+
+      # ==========================================================
+      # SECURITY HEADERS
+      # ==========================================================
+
+      - name: Create Security Headers
+
+        run: |
+
+          set -e
+
+          cat > dist/_headers <<'EOF'
+
+          /*
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            Referrer-Policy: strict-origin-when-cross-origin
+            Permissions-Policy: camera=(), microphone=(), geolocation=()
+            Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+          /index.html
+            Cache-Control: no-cache, no-store, must-revalidate
+
+          /apps.json
+            Cache-Control: no-cache, no-store, must-revalidate
+
+          /app.js
+            Cache-Control: public, max-age=31536000, immutable
+
+          /main.css
+            Cache-Control: public, max-age=31536000, immutable
+
+          EOF
+
+
+      # ==========================================================
+      # VERIFY BUILD
+      # ==========================================================
+
+      - name: Verify Deployment Files
+
+        run: |
+
+          set -e
+
+          test -f dist/index.html
+          test -f dist/app.js
+          test -f dist/main.css
+          test -f dist/apps.json
+          test -f dist/_headers
+
+          echo ""
+          echo "Payment Store build verified."
+          echo ""
+
+          find dist -type f -print
+
+
+      # ==========================================================
+      # CLOUDFLARE AUTHENTICATION
+      # ==========================================================
+
+      - name: Configure Cloudflare
+
+        env:
+
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+        run: |
+
+          set -e
+
+          wrangler whoami
+
+
+      # ==========================================================
+      # CREATE CLOUDFLARE PAGES PROJECT
+      # ==========================================================
+
+      - name: Create Cloudflare Pages Project
+
+        env:
+
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+        run: |
+
+          set -e
+
+          if wrangler pages project list | grep -q "$PROJECT_NAME"
+          then
+
+            echo "Cloudflare Pages project already exists."
+
+          else
+
+            echo "Creating Cloudflare Pages project..."
+
+            wrangler pages project create "$PROJECT_NAME" \
+              --production-branch main
+
+          fi
+
+
+      # ==========================================================
+      # DEPLOY CLOUDFLARE PAGES
+      # ==========================================================
+
+      - name: Deploy Cloudflare Pages
+
+        env:
+
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+        run: |
+
+          set -e
+
+          wrangler pages deploy dist \
+            --project-name="$PROJECT_NAME" \
+            --branch=main
+
+
+      # ==========================================================
+      # SUCCESS
+      # ==========================================================
+
+      - name: Deployment Complete
+
+        run: |
+
+          echo ""
+          echo "============================================================"
+          echo "VIDHWAAN PAYMENT STORE DEPLOYED SUCCESSFULLY"
+          echo "============================================================"
+          echo ""
+          echo "Project: $PROJECT_NAME"
+          echo ""
+          echo "Expected URL:"
+          echo "https://paymentstore.vidhwaan.com/"
+          echo ""
