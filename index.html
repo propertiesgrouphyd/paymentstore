@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Choose a Vidhwaan app and subscribe securely."
+  >
+
+  <meta
+    name="theme-color"
+    content="#ffffff"
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin"
+  >
+
+  <title>Vidhwaan — Apps & Subscriptions</title>
+
+  <link
+    rel="stylesheet"
+    href="./main.css"
+  >
+
+  <script
+    src="./app.js"
+    defer
+  ></script>
+</head>
+
+<body>
+
+  <div class="site-shell">
+
+    <!-- ======================================================
+         HEADER
+         ====================================================== -->
+
+    <header class="site-header">
+
+      <div class="header-inner">
+
+        <a
+          class="brand"
+          href="/"
+          aria-label="Vidhwaan home"
+        >
+
+          <span
+            class="brand-mark"
+            aria-hidden="true"
+          >
+            V
+          </span>
+
+          <span class="brand-text">
+            Vidhwaan
+          </span>
+
+        </a>
+
+        <div
+          class="secure-badge"
+          aria-label="Secure payment"
+        >
+
+          <span
+            class="secure-icon"
+            aria-hidden="true"
+          >
+            ✓
+          </span>
+
+          <span>
+            Secure Payment
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- ======================================================
+         MAIN
+         ====================================================== -->
+
+    <main>
+
+      <!-- ====================================================
+           INTRO
+           ==================================================== -->
+
+      <section
+        class="hero-section"
+        aria-labelledby="page-title"
+      >
+
+        <div class="hero-inner">
+
+          <p class="eyebrow">
+            VIDHWAAN APPS
+          </p>
+
+          <h1 id="page-title">
+            Choose an app to get started
+          </h1>
+
+          <p class="hero-description">
+            Select a Vidhwaan app and subscribe securely.
+            Your subscription details and payment will be
+            handled through Vidhwaan Payments.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           ERROR
+           ==================================================== -->
+
+      <div
+        id="error-alert"
+        class="alert alert-error"
+        role="alert"
+        aria-live="assertive"
+        hidden
+      >
+
+        <span
+          class="alert-icon"
+          aria-hidden="true"
+        >
+          !
+        </span>
+
+        <div>
+          <strong>
+            Unable to load apps
+          </strong>
+
+          <p id="error-message">
+            Please try again.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- ====================================================
+           APP STORE
+           ==================================================== -->
+
+      <section
+        class="apps-section"
+        aria-labelledby="apps-heading"
+      >
+
+        <div class="section-heading">
+
+          <div>
+
+            <p class="section-eyebrow">
+              SUBSCRIPTIONS
+            </p>
+
+            <h2 id="apps-heading">
+              Vidhwaan Apps
+            </h2>
+
+          </div>
+
+          <p
+            id="app-count"
+            class="app-count"
+            aria-live="polite"
+          ></p>
+
+        </div>
+
+
+        <!-- ==================================================
+             LOADING
+             ================================================== -->
+
+        <div
+          id="loading-state"
+          class="loading-state"
+          aria-live="polite"
+        >
+
+          <div
+            class="loading-spinner"
+            aria-hidden="true"
+          ></div>
+
+          <p>
+            Loading apps…
+          </p>
+
+        </div>
+
+
+        <!-- ==================================================
+             APP GRID
+             ================================================== -->
+
+        <div
+          id="apps-grid"
+          class="apps-grid"
+          aria-live="polite"
+          aria-busy="true"
+        ></div>
+
+
+        <!-- ==================================================
+             EMPTY STATE
+             ================================================== -->
+
+        <div
+          id="empty-state"
+          class="empty-state"
+          hidden
+        >
+
+          <div
+            class="empty-icon"
+            aria-hidden="true"
+          >
+            —
+          </div>
+
+          <h3>
+            No apps are currently available
+          </h3>
+
+          <p>
+            Please check again later.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           TRUST SECTION
+           ==================================================== -->
+
+      <section
+        class="trust-section"
+        aria-label="Payment information"
+      >
+
+        <div class="trust-grid">
+
+          <div class="trust-item">
+
+            <span
+              class="trust-icon"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
+
+            <div>
+
+              <strong>
+                Secure checkout
+              </strong>
+
+              <span>
+                Payments are securely processed.
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="trust-item">
+
+            <span
+              class="trust-icon"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
+
+            <div>
+
+              <strong>
+                30-day subscription
+              </strong>
+
+              <span>
+                Simple and transparent pricing.
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="trust-item">
+
+            <span
+              class="trust-icon"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
+
+            <div>
+
+              <strong>
+                Verified access
+              </strong>
+
+              <span>
+                Your payment generates a unique subscription ID.
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- ======================================================
+         FOOTER
+         ====================================================== -->
+
+    <footer class="site-footer">
+
+      <div class="footer-inner">
+
+        <div class="footer-brand">
+
+          <span class="footer-brand-name">
+            Vidhwaan
+          </span>
+
+          <span class="footer-separator">
+            ·
+          </span>
+
+          <span>
+            Apps & Subscriptions
+          </span>
+
+        </div>
+
+        <p>
+          Secure subscriptions powered by Vidhwaan Payments.
+        </p>
+
+      </div>
+
+    </footer>
+
+  </div>
+
+
+  <!-- ========================================================
+       APP CARD TEMPLATE
+
+       JavaScript clones this template for every app.
+       Only active apps receive an enabled Pay button.
+       ======================================================== -->
+
+  <template id="app-card-template">
+
+    <article class="app-card">
+
+      <div class="app-card-top">
+
+        <div class="app-icon-wrap">
+
+          <img
+            class="app-icon"
+            src=""
+            alt=""
+            loading="lazy"
+            decoding="async"
+          >
+
+        </div>
+
+        <span class="app-status">
+          Available
+        </span>
+
+      </div>
+
+
+      <div class="app-card-content">
+
+        <h3 class="app-name"></h3>
+
+        <p class="app-description">
+          Subscription access
+        </p>
+
+
+        <div class="subscription-details">
+
+          <div class="price-block">
+
+            <span class="price-label">
+              Subscription
+            </span>
+
+            <strong class="app-price">
+              ₹30
+            </strong>
+
+          </div>
+
+          <div class="duration-block">
+
+            <span class="duration-label">
+              Duration
+            </span>
+
+            <strong class="app-days">
+              30 days
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="pay-button"
+        >
+
+          <span class="pay-button-text">
+            Pay ₹30
+          </span>
+
+          <span
+            class="pay-button-arrow"
+            aria-hidden="true"
+          >
+            →
+          </span>
+
+        </button>
+
+      </div>
+
+    </article>
+
+  </template>
+
+</body>
+</html>
