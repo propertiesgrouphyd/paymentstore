@@ -799,6 +799,65 @@ main {
 
 
 /* ============================================================
+   VIEW APP BUTTON
+   ============================================================ */
+
+.view-app-button {
+  width: 100%;
+  min-height: 42px;
+
+  margin-top: 10px;
+
+  padding:
+    9px
+    15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background: var(--surface-soft);
+  color: var(--text-soft);
+
+  font-size: 13px;
+  font-weight: 650;
+
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition);
+}
+
+.view-app-button:hover {
+  background: #eef1f5;
+  border-color: #d8dce3;
+  color: var(--text);
+}
+
+.view-app-button:active {
+  transform: translateY(1px);
+}
+
+.view-app-button-arrow {
+  font-size: 15px;
+  line-height: 1;
+
+  transition:
+    transform var(--transition);
+}
+
+.view-app-button:hover
+.view-app-button-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ============================================================
    DISABLED APP
    ============================================================ */
 
