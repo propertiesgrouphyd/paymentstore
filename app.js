@@ -514,6 +514,11 @@ function createAppCard(
       ".pay-button-text"
     );
 
+  const viewAppButton =
+    fragment.querySelector(
+      ".view-app-button"
+    );
+
 
   /*
    * App icon
@@ -554,6 +559,24 @@ function createAppCard(
   if (days) {
     days.textContent =
       `${app.days} days`;
+  }
+
+
+  /*
+   * View App
+   *
+   * Opens the actual app in a new browser tab.
+   */
+  if (viewAppButton) {
+
+    viewAppButton.href =
+      app.url;
+
+    viewAppButton.setAttribute(
+      "aria-label",
+      `Open ${app.name}`
+    );
+
   }
 
 
