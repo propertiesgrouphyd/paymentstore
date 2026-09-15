@@ -1,5 +1,14 @@
 [
   {
+    "id": "ecommerce",
+    "appId": "ECM",
+    "name": "E-commerce ",
+    "url": "https://business.vidhwaan.com",
+    "amount": 1,
+    "days": 30,
+    "active": true
+  },
+  {
     "id": "aividhya",
     "appId": "AIV",
     "name": "AIVidhya",
@@ -22,9 +31,9 @@
     "appId": "VAW",
     "name": "VIDHWAAN AI Writer",
     "url": "https://writer.vidhwaan.com",
-    "amount": 1,
+    "amount": 30,
     "days": 30,
-    "active": true
+    "active": false
   },
   {
     "id": "kidlab",
