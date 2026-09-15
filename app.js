@@ -388,6 +388,9 @@ function createAppIcon(
     AIV:
       "https://aividhya.vidhwaan.com/icons/icon-512.png",
 
+    ECM:
+      "https://business.vidhwaan.com/icons/ecommerce/logo.png",
+
     NEET:
       "https://neet.vidhwaan.com/icons/logo.png",
 
