@@ -391,6 +391,9 @@ function createAppIcon(
     ECM:
       "https://business.vidhwaan.com/ecommerce/icons/logo.png",
 
+    WEB:
+      "https://business.vidhwaan.com/website/icons/icon-512.png",
+
     NEET:
       "https://neet.vidhwaan.com/icons/logo.png",
 
