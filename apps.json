@@ -2,12 +2,23 @@
   {
     "id": "ecommerce",
     "appId": "ECM",
-    "name": "E-commerce ",
+    "name": "E-commerce",
     "url": "https://business.vidhwaan.com",
     "amount": 3000,
     "days": 30,
     "active": true
   },
+
+  {
+    "id": "website",
+    "appId": "WEB",
+    "name": "Website",
+    "url": "https://business.vidhwaan.com",
+    "amount": 3000,
+    "days": 30,
+    "active": true
+  },
+  
   {
     "id": "aividhya",
     "appId": "AIV",
